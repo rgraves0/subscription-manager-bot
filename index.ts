@@ -44,7 +44,7 @@ function apiCall<M extends keyof Telegram>(
             },
             res => {
                 let data = ''
-                res.on('error', e => (/* console.error(e) */ reject(e)))
+                res.on('error', e => /* console.error(e) */ reject(e))
                 res.on('data', chunk => (data += chunk))
                 res.on('end', () => {
                     const r = JSON.parse(data)
