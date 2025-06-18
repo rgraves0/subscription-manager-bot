@@ -44,7 +44,7 @@ function apiCall<M extends keyof Telegram>(
             },
             res => {
                 let data = ''
-                res.on('error', e => (console.error(e), reject(e)))
+                res.on('error', e => (/* console.error(e) */ reject(e)))
                 res.on('data', chunk => (data += chunk))
                 res.on('end', () => {
                     const r = JSON.parse(data)
@@ -65,7 +65,7 @@ async function getSheetToken(): Promise<string | null | undefined> {
         const email = process.env.SHEET_CLIENT_EMAIL
         const key = process.env.SHEET_PRIVATE_KEY
         if (!email || !key) {
-            console.error('No sheet auth set!')
+            // console.error('No sheet auth set!')
             return undefined
         }
         jwt = new JWT({ email, key, scopes: GOOGLE_AUTH_SCOPES })
@@ -120,7 +120,7 @@ async function newUser(message: Message.TextMessage): Promise<void> {
             chat_id,
             text: 'Something went wrong on our end, sorry!',
         })
-        console.error('Could not authenticate at Google Sheets API, no token!')
+        // console.error('Could not authenticate at Google Sheets API, no token!')
         return
     }
 
@@ -136,7 +136,7 @@ async function newUser(message: Message.TextMessage): Promise<void> {
             chat_id,
             text: 'Something went wrong on our end, sorry!',
         })
-        console.error('Could not read emails from Google Sheets API!')
+        // console.error('Could not read emails from Google Sheets API!')
         return
     }
 
@@ -208,7 +208,7 @@ async function verifyMembers(
             chat_id: insiderChatId,
             text: 'Something went wrong on our end, sorry!',
         })
-        console.error('Could not authenticate at Google Sheets API, no token!')
+        // console.error('Could not authenticate at Google Sheets API, no token!')
         return
     }
 
@@ -223,7 +223,7 @@ async function verifyMembers(
             chat_id: insiderChatId,
             text: 'Something went wrong on our end, sorry!',
         })
-        console.error('Could not read emails from Google Sheets API!')
+        // console.error('Could not read emails from Google Sheets API!')
         return
     }
 
@@ -272,7 +272,7 @@ export async function cancelSubscription(
     const s = google.sheets('v4').spreadsheets
     const token = await getSheetToken()
     if (!token) {
-        console.error('Could not authenticate at Google Sheets API, no token!')
+        // console.error('Could not authenticate at Google Sheets API, no token!')
         return
     }
 
@@ -283,7 +283,7 @@ export async function cancelSubscription(
     })
     const emails = range.data.values as SpreadsheetRow[] | undefined
     if (!emails) {
-        console.error('Could not read emails from Google Sheets API!')
+        // console.error('Could not read emails from Google Sheets API!')
         return
     }
 
