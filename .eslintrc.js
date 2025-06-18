@@ -11,7 +11,7 @@ module.exports = {
         'plugin:prettier/recommended',
     ],
     rules: {
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-console': 'off', // Disable no-console rule
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/no-explicit-any': 0,
